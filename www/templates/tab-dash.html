@@ -2,11 +2,29 @@
   <ion-content class="padding">
     <div class="list inset">
       <div class="item item-divider">New Assignment</div>
+
+      <div class="list">
+        <label class="item item-input">
+            <span class="input-label">Message: </span>
+            <input type="text" ng-model="newMessage">
+        </label>
+    </div>
+    <div>
+        <button class="button button-block" ng-click="save(newMessage)">
+            Save
+        </button>
+        <button class="button button-block" ng-click="load()">
+            Load
+        </button>
+        <p>{{ newMessage2 }}</p>
+        <p>{{ statusMessage }}</p>
+    </div>
+
       <!-- <label class="item item-input">
         <span class="input-label">Course</span>
         <input type="text">
       </label> -->
-      <label class="item item-input item-select">
+      <!-- <label class="item item-input item-select">
         <div class="input-label">
           Course
         </div>
@@ -15,7 +33,7 @@
           <option selected>Green</option>
           <option>Red</option>
         </select>
-      </label>
+      </label> -->
       
 
 <!--       <div class="item">

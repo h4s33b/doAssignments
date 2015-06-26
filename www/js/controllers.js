@@ -1,6 +1,37 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {
+.controller('DashCtrl', function($scope,$cordovaSQLite) {
+  $scope.save = function(newMessage) {
+    $cordovaSQLite.execute(db, 'INSERT INTO Assignments (course) VALUES (?)', [newMessage])
+        .then(function(result) {
+            $scope.statusMessage = "Message saved successful, cheers!";
+        }, function(error) {
+            $scope.statusMessage = "Error on saving: " + error.message;
+        })
+ 
+  }
+  $scope.newMessage2 = [];
+  $scope.load = function() {
+ 
+        // Execute SELECT statement to load message from database.
+        $cordovaSQLite.execute(db, 'SELECT * FROM Assignments')
+            .then(
+                function(result) {
+ 
+                    if (result.rows.length != 0) {
+                        for(k=0;k<result.rows.length;k++){
+                          $scope.newMessage2.push(result.rows.item(k).course);  
+                        }
+                        //$scope.newMessage2 = result.rows.item(0).course;
+                        console.log($scope.newMessage2);
+                        $scope.statusMessage = "Message loaded successful, cheers!";
+                    }
+                },
+                function(error) {
+                    $scope.statusMessage = "Error on loading: " + error.message;
+                }
+            );
+    }
   /*var options = {
   date: new Date(),
   mode: 'date'
